@@ -1,0 +1,20 @@
+ The project has been initialized as a React TypeScript library with the following setup:
+
+   - Build Tool: Vite configured in library mode for ESM and UMD outputs.
+   - Language: TypeScript with full type generation (vite-plugin-dts).
+   - Core Component: C2paManifest for displaying C2PA JSON data.
+   - Project Metadata: package.json configured for NPM publishing with proper entry points.
+   - Documentation: README.md with usage instructions.
+   - Source Control: Git initialized with initial commit and .gitignore.
+
+  You can now start developing your components in src/components/ and build the library using npm run build.
+
+  To publish to NPM:
+   1. Ensure you have an NPM account.
+   2. Run npm login.
+   3. Run npm publish.
+
+  To push to GitHub:
+   1. Create a new repository on GitHub.
+   2. Run git remote add origin https://github.com/matthewrappard/c2pa-react-component.git.
+   3. Run git push -u origin main.

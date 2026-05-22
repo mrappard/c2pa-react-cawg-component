@@ -1,0 +1,102 @@
+.cawg-card {
+  background: white;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  display: inline-block;
+  width: 95%;
+}
+
+.cawg-container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.cawg-square {
+  width: 48px;
+  height: 48px;
+  background-color: #FFD700;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.cawg-logo-text {
+  font-size: 18px;
+  font-weight: 700;
+  color: #000;
+  letter-spacing: -0.5px;
+}
+
+.cawg-media-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+  letter-spacing: -0.3px;
+}
+
+.cawg-claim-generator {
+  font-size: 14px;
+  color: #666;
+}
+
+.cawg-thumbnail {
+  width: 48px;
+  height: 48px;
+  border-radius: 4px;
+  object-fit: cover;
+}
+
+.cawg-button {
+  width: 100%;
+  height: 42px;
+  border-radius: 999px;
+  border: 2px solid #666;
+  background: #fff;
+  font-weight: 700;
+  font-size: 16px;
+  color: #666;
+  cursor: pointer;
+  transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease, box-shadow 160ms ease;
+}
+
+.cawg-button:hover {
+  background: #111;
+  border-color: #111;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.14);
+}
+
+.cawg-button:focus-visible {
+  outline: 3px solid rgba(17, 17, 17, 0.25);
+  outline-offset: 3px;
+}
+
+.cawg-section-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 6px;
+}
+
+.cawg-key-value {
+  margin-top: 16px;
+}
+
+.cawg-key-value-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  margin-bottom: 4px;
+}
+
+.cawg-key-value-value {
+  font-size: 16px;
+  color: #1e293b;
+  line-height: 1.5;
+}
