@@ -1,0 +1,23 @@
+{
+  "activeManifest": "urn:uuid:828b19c8-a70e-4a3f-84df-763967f7d372",
+  "manifests": {
+    "urn:uuid:828b19c8-a70e-4a3f-84df-763967f7d372": {
+      "claimGenerator": "Adobe_Firefly",
+      "claimGeneratorInfo": [
+        {
+          "name": "Adobe_Firefly",
+          "org.contentauth.c2pa_rs": "0.65.0"
+        }
+      ],
+      "title": "Generated image",
+      "instanceId": "xmp:iid:93a99d27-2472-4d38-8c6c-f0d3a5817881",
+      "signatureInfo": {
+        "alg": "Ps256",
+        "issuer": "Adobe Inc.",
+        "common_name": "Adobe Firefly C2PA",
+        "cert_serial_number": "413718503961764353137091285004603055550459694885",
+        "time": "2025-10-23T21:14:47+00:00"
+      }
+    }
+  }
+}

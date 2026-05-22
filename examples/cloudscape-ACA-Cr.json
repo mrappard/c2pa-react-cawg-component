@@ -1,0 +1,24 @@
+{
+  "activeManifest": "urn:c2pa:47febb04-4913-4a14-a1ac-5437b29fa302:adobe",
+  "manifests": {
+    "urn:c2pa:47febb04-4913-4a14-a1ac-5437b29fa302:adobe": {
+      "claimGenerator": null,
+      "claimGeneratorInfo": [
+        {
+          "name": "Adobe Content Authenticity",
+          "com.adobe.aca-version": "89ffcd7",
+          "org.contentauth.c2pa_rs": "0.67.1"
+        }
+      ],
+      "title": "cloudscape.jpeg",
+      "instanceId": "xmp:iid:58385160-5cbf-45c7-b5ea-9183c40073ff",
+      "signatureInfo": {
+        "alg": "Ps256",
+        "issuer": "Adobe Inc.",
+        "common_name": "Adobe Content Authenticity",
+        "cert_serial_number": "21260213937340663934497405005441263256",
+        "time": "2025-10-23T19:27:53+00:00"
+      }
+    }
+  }
+}

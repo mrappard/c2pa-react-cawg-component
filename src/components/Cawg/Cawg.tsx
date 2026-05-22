@@ -1,10 +1,11 @@
 import React from 'react'
-import {  Manifest, PluginC2PA } from '../../types'
+
 import { CAWGL1 } from './levels/L1/CAWGL1'
 import CAWGL2 from './levels/L2/CAWGL2';
 import CAWGL3 from './levels/L3/CAWGL3';
+import { Manifest, PluginC2PA } from 'c2pa-react-component-types';
 
-export const CAWGManifest: React.FC<PluginC2PA> = ({ manifest, level, className }) => {
+export const CAWGManifest: PluginC2PA = ({ manifest, level, className }) => {
   const activeManifestKey = manifest.manifestStore?.activeManifest;
   const activeManifest =
     manifest.manifests.find(

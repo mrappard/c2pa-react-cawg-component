@@ -1,5 +1,5 @@
 import { CAWG_Header } from "../../CAWG_Header";
-import { Manifest } from "../../../../types";
+import { Manifest } from 'c2pa-react-component-types';
 import "../styles/cawg.css";
 
 export interface CAWGL2Props {

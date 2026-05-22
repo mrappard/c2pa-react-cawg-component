@@ -1,0 +1,39 @@
+{
+  "activeManifest": "urn:c2pa:5e7b0c6d-8e4e-41bd-88d4-e4ef2984a971",
+  "manifests": {
+    "urn:c2pa:5e7b0c6d-8e4e-41bd-88d4-e4ef2984a971": {
+      "claimGenerator": null,
+      "claimGeneratorInfo": [
+        {
+          "name": "ChatGPT",
+          "org.contentauth.c2pa_rs": "0.0.0"
+        }
+      ],
+      "title": "image.png",
+      "instanceId": "xmp:iid:94667f26-cf6b-4e5d-88db-4a5129a30a54",
+      "signatureInfo": {
+        "alg": "Es256",
+        "issuer": "OpenAI",
+        "common_name": "Truepic Lens CLI in Sora",
+        "cert_serial_number": "617499572571975960762842960741769199804397700166"
+      }
+    },
+    "urn:c2pa:ec8fd500-c0c2-4b84-8263-f6a1bf03ea94": {
+      "claimGenerator": null,
+      "claimGeneratorInfo": [
+        {
+          "name": "ChatGPT",
+          "org.contentauth.c2pa_rs": "0.0.0"
+        }
+      ],
+      "title": "image.png",
+      "instanceId": "xmp:iid:412ff266-e238-4869-b81e-b2da56461a52",
+      "signatureInfo": {
+        "alg": "Es256",
+        "issuer": "OpenAI",
+        "common_name": "Truepic Lens CLI in Sora",
+        "cert_serial_number": "617499572571975960762842960741769199804397700166"
+      }
+    }
+  }
+}

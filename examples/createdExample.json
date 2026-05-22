@@ -1,0 +1,72 @@
+{
+  "state": false,
+  "manifests": [
+    {
+      "id": "urn:c2pa:0d166542-7288-4833-9662-9487f3dbd048",
+      "title": "Test Document",
+      "claimGenerator": null,
+      "claimGeneratorInfo": [
+        {
+          "name": "test_generator",
+          "org.contentauth.c2pa_rs": "0.80.0"
+        }
+      ],
+      "instanceId": "xmp:iid:888e39d4-945c-4dbc-9c20-799265e8123b",
+      "signatureInfo": {
+        "alg": "Es256",
+        "issuer": "C2PA Test Signing Cert",
+        "common_name": "C2PA Signer",
+        "cert_serial_number": "640229841392226413189608867977836244731148734950"
+      },
+      "assertions": {
+        "c2pa.actions.v2": {
+          "actions": [
+            {
+              "action": "c2pa.created"
+            }
+          ]
+        },
+        "stds.schema-org.CreativeWork": {
+          "@context": "https://schema.org",
+          "@type": "CreativeWork",
+          "author": [
+            {
+              "@type": "Person",
+              "name": "Matthew Rappard"
+            }
+          ],
+          "publisher": {
+            "@type": "Organization",
+            "name": "Example Publisher"
+          },
+          "name": "Test Document"
+        }
+      },
+      "credentials": [],
+      "thumbnail": null,
+      "ingredients": []
+    }
+  ],
+  "manifestStore": {
+    "activeManifest": "urn:c2pa:0d166542-7288-4833-9662-9487f3dbd048",
+    "manifests": {
+      "urn:c2pa:0d166542-7288-4833-9662-9487f3dbd048": {
+        "claimGenerator": null,
+        "claimGeneratorInfo": [
+          {
+            "name": "test_generator",
+            "org.contentauth.c2pa_rs": "0.80.0"
+          }
+        ],
+        "title": "Test Document",
+        "instanceId": "xmp:iid:888e39d4-945c-4dbc-9c20-799265e8123b",
+        "signatureInfo": {
+          "alg": "Es256",
+          "issuer": "C2PA Test Signing Cert",
+          "common_name": "C2PA Signer",
+          "cert_serial_number": "640229841392226413189608867977836244731148734950"
+        }
+      }
+    }
+  }
+}

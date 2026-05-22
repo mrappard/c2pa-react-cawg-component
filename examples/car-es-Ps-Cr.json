@@ -1,0 +1,24 @@
+{
+  "activeManifest": "adobe:urn:uuid:3e12431f-16dc-478c-9aa1-f9eb40910a0f",
+  "manifests": {
+    "adobe:urn:uuid:3e12431f-16dc-478c-9aa1-f9eb40910a0f": {
+      "claimGenerator": "Adobe_Photoshop/26.11.0 adobe_c2pa/0.14.2 c2pa-rs/0.43.0",
+      "claimGeneratorInfo": [
+        {
+          "name": "Adobe Photoshop",
+          "version": "26.11.0",
+          "com.adobe.build": "20250918.r.18 a87e57f mac"
+        }
+      ],
+      "title": "car-es-1sm.jpg",
+      "instanceId": "xmp:iid:55bbae80-1e03-4d3a-b5fd-34e9aa804107",
+      "signatureInfo": {
+        "alg": "Ps256",
+        "issuer": "Adobe Inc.",
+        "common_name": "Adobe C2PA",
+        "cert_serial_number": "419323736054358557205556576293173262079519360989",
+        "time": "2025-10-23T19:22:19+00:00"
+      }
+    }
+  }
+}

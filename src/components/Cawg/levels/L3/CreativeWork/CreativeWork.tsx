@@ -1,5 +1,5 @@
 import React from "react";
-import { Manifest } from "../../../../../types";
+import { Manifest } from 'c2pa-react-component-types';
 import KeyValueDisplayer from "./KeyValueDisplayer";
 
 export interface CreativeWorkProps {

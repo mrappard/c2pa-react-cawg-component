@@ -1,14 +1,14 @@
-# c2pa-react-component
+# c2pa-react-cawg-component
 
-A React component library for displaying [C2PA](https://c2pa.org/) manifest information — provenance, validation state, signing details, and ingredient history.
+A plugin for [c2pa-react-component](https://github.com/matthewrappard/c2pa-react-component) that renders [CAWG (Creator Assertions Working Group)](https://creator-assertions.github.io/) manifest data — including author, publisher, and the full `stds.schema-org.CreativeWork` assertion — at three progressive levels of detail.
 
-## Installation
+## Requirements
+
+This package is a plugin for `c2pa-react-component`. Install both:
 
 ```bash
-npm install c2pa-react-component @xyflow/react
+npm install c2pa-react-cawg-component c2pa-react-component
 ```
-
-`@xyflow/react` is a required peer dependency (used by the provenance graph component).
 
 ### Peer dependencies
 
@@ -16,20 +16,19 @@ npm install c2pa-react-component @xyflow/react
 |---|---|
 | `react` | `^18.0.0 \|\| ^19.0.0` |
 | `react-dom` | `^18.0.0 \|\| ^19.0.0` |
-| `@xyflow/react` | `^12.0.0` |
 
 ## CSS
 
-Import the stylesheet once at the root of your app. Without it, components will render unstyled.
+Import the stylesheet once at the root of your app:
 
 ```ts
-import "c2pa-react-component/style.css";
+import "c2pa-react-cawg-component/style.css";
 ```
 
 **Next.js App Router** — add it to `app/layout.tsx`:
 
 ```tsx
-import "c2pa-react-component/style.css";
+import "c2pa-react-cawg-component/style.css";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -40,160 +39,68 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 }
 ```
 
-## Components
+## Usage
 
-### `C2paManifest`
-
-Displays C2PA manifest data at a configurable level of detail. Levels progress from a minimal icon badge up to a full provenance graph.
+Pass `CAWGManifest` as a plugin to the `C2paManifest` component from `c2pa-react-component`:
 
 ```tsx
-import { C2paManifest, type VerificationOutcome } from "c2pa-react-component";
+import { C2paManifest } from "c2pa-react-component";
+import { CAWGManifest } from "c2pa-react-cawg-component";
+import type { VerificationOutcome } from "c2pa-react-component-types";
+import "c2pa-react-cawg-component/style.css";
 
-<C2paManifest manifest={verificationOutcome} level={2} />
+export function MediaCard({ outcome }: { outcome: VerificationOutcome }) {
+  return (
+    <C2paManifest
+      manifest={outcome}
+      plugin={[CAWGManifest]}
+    />
+  );
+}
+```
+
+## Component
+
+### `CAWGManifest`
+
+Renders CAWG creator assertion data from a C2PA manifest at a configurable level of detail.
+
+```tsx
+import { CAWGManifest } from "c2pa-react-cawg-component";
+
+<CAWGManifest manifest={verificationOutcome} level={1} />
 ```
 
 #### Props
 
 | Prop | Type | Default | Description |
 |---|---|---|---|
-| `manifest` | `VerificationOutcome` | required | The verification result from a C2PA SDK |
-| `level` | `1 \| 2 \| 3 \| 4 \| 5` | `3` | Initial disclosure level |
+| `manifest` | `VerificationOutcome` | required | Verification result from the C2PA SDK |
+| `level` | `1 \| 2 \| 3` | `1` | Initial disclosure level |
 | `className` | `string` | — | CSS class applied to the root element |
-| `onViewMore` | `() => void` | — | Custom callback when the user requests more detail |
-| `defaultViewMore` | `boolean` | — | When `true`, the built-in level progression is used instead of a custom `onViewMore` |
 
 #### Disclosure levels
 
 | Level | What is shown |
 |---|---|
-| `1` | Icon-only badge (clickable) |
-| `2` | Compact summary: active manifest, signing info, provenance chain |
-| `3` | Interactive provenance graph (default) |
-| `4` | Detailed manifest with assertions and ingredients |
-| `5` | Full raw manifest detail |
+| `1` | Compact card: title, claim generator (thumbnail or initials badge), "More Info" button |
+| `2` | Extends level 1 with author and publisher from the `stds.schema-org.CreativeWork` assertion |
+| `3` | Full `stds.schema-org.CreativeWork` assertion — all present Schema.org fields rendered as key/value pairs |
 
-When `defaultViewMore` is `true`, clicking "View more" automatically advances through levels `1 → 2 → 3 → 4 → 5 → 1`.
-
----
-
-### `C2paProvenanceGraph`
-
-An interactive node graph visualising the full ingredient/manifest chain. Powered by React Flow.
-
-```tsx
-import { C2paProvenanceGraph, type ManifestStore } from "c2pa-react-component";
-
-<C2paProvenanceGraph manifest={manifestStore} height={500} />
-```
-
-#### Props
-
-| Prop | Type | Default | Description |
-|---|---|---|---|
-| `manifest` | `ManifestStore` | required | The manifest store from `VerificationOutcome.manifestStore` |
-| `height` | `number` | `400` | Height of the graph container in pixels |
-| `className` | `string` | — | CSS class applied to the root element |
-
-The graph is interactive: nodes are draggable, the view auto-fits on load, and a minimap and zoom controls are included.
-
----
-
-### `CRIcon`
-
-The Content Credentials "cr" icon as an inline SVG component.
-
-```tsx
-import { CRIcon } from "c2pa-react-component";
-
-<CRIcon size={24} />
-```
-
----
+Clicking "More Info" advances from level 1 → 2 → 3. Clicking "Small View" at level 3 returns to level 1.
 
 ## Types
 
-All types are re-exported from the package root.
+Types are provided by the shared `c2pa-react-component-types` package, which is installed automatically as a dependency.
 
 ```ts
 import type {
   VerificationOutcome,
+  Manifest,
   ManifestStore,
-  ManifestEntry,
-  Ingredient,
-  Assertion,
-  SignatureInfo,
-  ValidationResults,
-  ValidationResult,
-  DisclosureLevel,
-  C2paManifestProps,
-  C2paProvenanceGraphProps,
-} from "c2pa-react-component";
+  PluginC2PA,
+} from "c2pa-react-component-types";
 ```
-
-### `VerificationOutcome`
-
-The top-level type passed to `C2paManifest`.
-
-```ts
-interface VerificationOutcome {
-  state: boolean;
-  manifests: Manifest[];
-  manifestStore: ManifestStore | undefined;
-}
-```
-
-### `ManifestStore`
-
-```ts
-interface ManifestStore {
-  activeManifest: string;
-  manifests: Record<string, ManifestEntry>;
-  validation_status?: ValidationResult[];
-  validation_results?: {
-    activeManifest: ValidationResults;
-    ingredientDeltas?: IngredientDelta[];
-  };
-  validation_state?: "Valid" | "Invalid" | "Unknown";
-}
-```
-
----
-
-## Usage example
-
-```tsx
-import { C2paManifest } from "c2pa-react-component";
-import type { VerificationOutcome } from "c2pa-react-component";
-
-export function MediaCard({ outcome }: { outcome: VerificationOutcome }) {
-  return (
-    <div>
-      <img src="/photo.jpg" alt="Photo" />
-      <C2paManifest
-        manifest={outcome}
-        level={2}
-        defaultViewMore
-      />
-    </div>
-  );
-}
-```
-
----
-
-## Framework notes
-
-### Next.js App Router
-
-This library ships as ESM. No additional `transpilePackages` configuration is needed. Import the CSS in your root layout as shown above.
-
-If you are using `"use client"` components that import from this library, the import works as-is — no dynamic import wrapper is required.
-
-### Vite / Create React App
-
-No special configuration needed. Import the CSS once in your entry file (e.g. `main.tsx`).
-
----
 
 ## Local development
 
@@ -218,21 +125,16 @@ yalc push --watch
 **In your consuming project:**
 
 ```bash
-# Add the local package
-yalc add c2pa-react-component
+yalc add c2pa-react-cawg-component
 npm install
 ```
-
-After that, any save in this repo triggers a rebuild and the consuming project picks up the changes automatically — no reinstall required.
 
 **Revert to the published npm version:**
 
 ```bash
-yalc remove c2pa-react-component
+yalc remove c2pa-react-cawg-component
 npm install
 ```
-
----
 
 ## License
 

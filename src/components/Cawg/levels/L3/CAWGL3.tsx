@@ -1,4 +1,4 @@
-import { Manifest } from "../../../../types";
+import { Manifest } from 'c2pa-react-component-types';
 import CreativeWork from "./CreativeWork/CreativeWork";
 import { CAWG_Header } from "../../CAWG_Header";
 import "../styles/cawg.css";
