@@ -1,0 +1,125 @@
+{
+  "state": true,
+  "manifests": [
+    {
+      "id": "urn:c2pa:example-identity-001",
+      "title": "Portrait of a Creator",
+      "claimGenerator": null,
+      "claimGeneratorInfo": [
+        {
+          "name": "Adobe Photoshop",
+          "org.contentauth.c2pa_rs": "0.65.0"
+        }
+      ],
+      "instanceId": "xmp:iid:example-identity-001",
+      "signatureInfo": {
+        "alg": "Ps256",
+        "issuer": "Adobe Inc.",
+        "common_name": "Adobe Photoshop C2PA",
+        "cert_serial_number": "413718503961764353137091285004603055550459694885"
+      },
+      "assertions": {
+        "c2pa.actions.v2": {
+          "actions": [{ "action": "c2pa.created" }]
+        },
+        "cawg.identity": {
+          "signer_payload": {
+            "sig_type": "cawg.identity_claims_aggregation",
+            "role": ["cawg.creator"],
+            "referenced_assertions": []
+          },
+          "verifiedIdentities": [
+            {
+              "type": "cawg.document_verification",
+              "name": "Matthew Rappard",
+              "provider": {
+                "id": "https://example-id-verifier.com",
+                "name": "Example ID Verifier"
+              },
+              "verifiedAt": "2024-07-26T22:30:15Z"
+            },
+            {
+              "type": "cawg.social_media",
+              "name": "Matthew Rappard",
+              "username": "matthewrappard",
+              "uri": "https://instagram.com/matthewrappard",
+              "provider": {
+                "id": "https://instagram.com",
+                "name": "Instagram"
+              },
+              "verifiedAt": "2024-05-27T08:40:39Z"
+            },
+            {
+              "type": "cawg.web_site",
+              "uri": "https://matthewrappard.com",
+              "provider": {
+                "id": "https://matthewrappard.com",
+                "name": "matthewrappard.com"
+              },
+              "verifiedAt": "2024-09-25T22:13:35Z"
+            },
+            {
+              "type": "cawg.affiliation",
+              "provider": {
+                "id": "https://adobe.com",
+                "name": "Adobe Inc."
+              },
+              "verifiedAt": "2024-07-26T22:29:57Z"
+            }
+          ],
+          "issuer": "did:web:connected-identities.identity.adobe.com"
+        },
+        "cawg.metadata": {
+          "@context": {
+            "dc": "http://purl.org/dc/elements/1.1/",
+            "Iptc4xmpExt": "http://iptc.org/std/Iptc4xmpExt/2008-02-29/",
+            "photoshop": "http://ns.adobe.com/photoshop/1.0/"
+          },
+          "dc:creator": "Matthew Rappard",
+          "dc:publisher": "Adobe Inc.",
+          "photoshop:DateCreated": "2024-07-26",
+          "Iptc4xmpExt:DigitalSourceType": "https://cv.iptc.org/newscodes/digitalsourcetype/digitalCapture",
+          "Iptc4xmpExt:LocationCreated": {
+            "Iptc4xmpExt:City": "San Francisco"
+          }
+        },
+        "cawg.training-mining": {
+          "entries": {
+            "cawg.data_mining": { "use": "allowed" },
+            "cawg.ai_inference": { "use": "allowed" },
+            "cawg.ai_training": { "use": "notAllowed" },
+            "cawg.ai_generative_training": {
+              "use": "constrained",
+              "constraint_info": "Contact rights holder for permission"
+            }
+          }
+        }
+      },
+      "credentials": [],
+      "thumbnail": null,
+      "ingredients": []
+    }
+  ],
+  "manifestStore": {
+    "activeManifest": "urn:c2pa:example-identity-001",
+    "manifests": {
+      "urn:c2pa:example-identity-001": {
+        "claimGenerator": null,
+        "claimGeneratorInfo": [
+          {
+            "name": "Adobe Photoshop",
+            "org.contentauth.c2pa_rs": "0.65.0"
+          }
+        ],
+        "title": "Portrait of a Creator",
+        "instanceId": "xmp:iid:example-identity-001",
+        "signatureInfo": {
+          "alg": "Ps256",
+          "issuer": "Adobe Inc.",
+          "common_name": "Adobe Photoshop C2PA",
+          "cert_serial_number": "413718503961764353137091285004603055550459694885"
+        }
+      }
+    }
+  }
+}

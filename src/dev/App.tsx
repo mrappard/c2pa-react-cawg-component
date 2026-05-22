@@ -8,6 +8,7 @@ import cloudscape from '../../examples/cloudscape-ACA-Cr.json'
 import craterLake from '../../examples/crater-lake-cr.json'
 import createdExample from '../../examples/createdExample.json'
 import fireflyTabby from '../../examples/Firefly_tabby_cat.json'
+import identityExample from '../../examples/cawg-identity-example.json'
 
 type ManifestStoreFormat = {
   activeManifest: string
@@ -39,7 +40,8 @@ function storeToOutcome(store: ManifestStoreFormat): VerificationOutcome {
 }
 
 const examples: { label: string; data: VerificationOutcome }[] = [
-  { label: 'Created Example (CAWG author + publisher)', data: createdExample as unknown as VerificationOutcome },
+  { label: 'CAWG Identity + Metadata + Training (full example)', data: identityExample as unknown as VerificationOutcome },
+  { label: 'Created Example (schema.org only)', data: createdExample as unknown as VerificationOutcome },
   { label: 'Adobe Firefly – Tabby Cat', data: storeToOutcome(fireflyTabby as ManifestStoreFormat) },
   { label: 'Adobe Photoshop – Car', data: storeToOutcome(carEsPs as ManifestStoreFormat) },
   { label: 'ChatGPT – Image', data: storeToOutcome(chatGptImage as ManifestStoreFormat) },
