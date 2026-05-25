@@ -1,7 +1,7 @@
 {
   "name": "c2pa-react-cawg-component",
   "version": "0.1.8",
-  "description": "A React library for displaying C2PA manifest information.",
+  "description": "A React plugin for c2pa-react-component that renders Creator Assertions Working Group (CAWG) data — identity credentials, metadata, and training permissions.",
   "type": "module",
   "main": "./dist/c2pa-react-cawg-component.umd.cjs",
   "module": "./dist/c2pa-react-cawg-component.js",
@@ -26,7 +26,8 @@
     "build": "tsc && vite build",
     "lint": "eslint src",
     "preview": "vite preview",
-    "test": "vitest run",
+    "prepublishOnly": "npm run build",
+    "test": "vitest run --passWithNoTests",
     "test:watch": "vitest",
     "test:ui": "vitest --ui",
     "dev:lib": "vite build --watch"
@@ -37,9 +38,13 @@
   },
   "keywords": [
     "c2pa",
+    "cawg",
+    "creator-assertions",
     "react",
     "component",
-    "manifest"
+    "identity",
+    "provenance",
+    "content-credentials"
   ],
   "author": "Matthew Rappard",
   "license": "MIT",

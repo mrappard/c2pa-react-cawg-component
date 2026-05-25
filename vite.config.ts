@@ -15,17 +15,16 @@ export default defineConfig({
   build: {
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
-      name: 'C2paReactComponent',
-      fileName: 'c2pa-react-component',
+      name: 'C2paReactCawgComponent',
+      fileName: 'c2pa-react-cawg-component',
     },
     rollupOptions: {
-      external: ['react', 'react-dom', 'react/jsx-runtime', '@xyflow/react'],
+      external: ['react', 'react-dom', 'react/jsx-runtime'],
       output: {
         globals: {
           react: 'React',
           'react-dom': 'ReactDOM',
           'react/jsx-runtime': 'ReactJSXRuntime',
-          '@xyflow/react': 'XYFlow',
         },
       },
     },
