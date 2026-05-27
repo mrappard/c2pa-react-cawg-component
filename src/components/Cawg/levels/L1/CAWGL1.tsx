@@ -15,9 +15,10 @@ const ROLE_LABELS: Record<string, string> = {
 export interface CAWGL1Props {
   manifest: Manifest;
   moreInfo?: () => void;
+  className?: string;
 }
 
-export function CAWGL1({ manifest, moreInfo }: CAWGL1Props) {
+export function CAWGL1({ className, manifest, moreInfo }: CAWGL1Props) {
   const title = manifest.title;
   const claimGenerator = manifest.claimGenerator ?? manifest.claimGeneratorInfo?.[0]?.name ?? 'Unknown';
   const initials = claimGenerator.split(' ').filter(Boolean).map((n: string) => n[0].toUpperCase()).join('') || '?';
@@ -26,7 +27,7 @@ export function CAWGL1({ manifest, moreInfo }: CAWGL1Props) {
   const roles: string[] = identityAssertion?.signer_payload?.role ?? [];
 
   return (
-    <div className="cawg-card">
+    <div className={`cawg-card ${className ?? ''}`}>
       <CAWG_Header />
       <div className="cawg-container">
         {manifest.thumbnail ? (
