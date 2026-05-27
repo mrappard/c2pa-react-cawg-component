@@ -16,21 +16,26 @@ export const CAWGManifest: PluginC2PA = ({ manifest, level, className }) => {
       : undefined) ??
     manifest.manifests[0];
 
-  if (!activeManifest) {
-    return <div className={className}>No active manifest found.</div>
-  }
+  if (!activeManifest) return null;
+
+  const hasCawgData =
+    activeManifest.assertions?.['cawg.identity'] != null ||
+    activeManifest.assertions?.['cawg.training-mining'] != null ||
+    activeManifest.assertions?.['cawg.metadata'] != null;
+
+  if (!hasCawgData) return null;
 
   const [levelOfDetail, setLevelOfDetail] = React.useState(level || 1)
 
 
   switch (levelOfDetail) {
-    case 1: return <CAWGL1 manifest={activeManifest} moreInfo={()=>{
+    case 1: return <CAWGL1 className={className} manifest={activeManifest} moreInfo={()=>{
       setLevelOfDetail(2);
     }} />
-    case 2: return <CAWGL2 manifest={activeManifest} moreInfo={()=>{
+    case 2: return <CAWGL2 className={className} manifest={activeManifest} moreInfo={()=>{
       setLevelOfDetail(3);
     }}  />
-    case 3: return <CAWGL3 manifest={activeManifest} moreInfo={()=>{
+    case 3: return <CAWGL3 className={className} manifest={activeManifest} moreInfo={()=>{
       setLevelOfDetail(1);
     }}/>
   }

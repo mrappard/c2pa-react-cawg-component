@@ -69,9 +69,10 @@ function formatMetaValue(value: unknown): string {
 export interface CAWGL3Props {
   manifest: Manifest;
   moreInfo?: () => void;
+  className?: string;
 }
 
-export default function CAWGL3({ manifest, moreInfo }: CAWGL3Props) {
+export default function CAWGL3({ className, manifest, moreInfo }: CAWGL3Props) {
   const title = manifest.title;
   const claimGenerator = manifest.claimGenerator ?? manifest.claimGeneratorInfo?.[0]?.name ?? 'Unknown';
   const initials = claimGenerator.split(' ').filter(Boolean).map((n: string) => n[0].toUpperCase()).join('') || '?';
@@ -91,7 +92,7 @@ export default function CAWGL3({ manifest, moreInfo }: CAWGL3Props) {
     : [];
 
   return (
-    <div className="cawg-card">
+    <div className={`cawg-card ${className ?? ''}`}>
       <CAWG_Header />
       <div className="cawg-container">
         {manifest.thumbnail ? (
