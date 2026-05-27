@@ -43,4 +43,22 @@ export const CAWGManifest: PluginC2PA = ({ manifest, level, className }) => {
    return <div>Level Of Detail Not Selected</div>
 }
 
+  CAWGManifest.knownAssertions = [
+    'cawg.identity',
+    'cawg.training-mining',
+    'cawg.metadata',
+    'cawg.creator',
+    'cawg.contributor',
+    'cawg.editor',
+    'cawg.producer',
+    'cawg.publisher',
+    'cawg.sponsor',   
+    'cawg.translator',
+    'cawg.document_verification',
+    'cawg.web_site',
+    'cawg.affiliation',
+    'cawg.social_media',
+    'cawg.crypto_wallet',
+  ]
+
 export default CAWGManifest
