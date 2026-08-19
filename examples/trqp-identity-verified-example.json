@@ -1,0 +1,104 @@
+{
+  "state": true,
+  "manifests": [
+    {
+      "id": "urn:c2pa:example-trqp-002",
+      "title": "Registered Signer Photo",
+      "claimGenerator": null,
+      "claimGeneratorInfo": [
+        {
+          "name": "Adobe Photoshop",
+          "org.contentauth.c2pa_rs": "0.65.0"
+        }
+      ],
+      "instanceId": "xmp:iid:example-trqp-002",
+      "signatureInfo": {
+        "alg": "Es256",
+        "issuer": "Creator Assertions Working Group",
+        "common_name": "CAWG Test Signer",
+        "cert_serial_number": "918273645918273645918273645918273645918273"
+      },
+      "assertions": {
+        "c2pa.actions.v2": {
+          "actions": [{ "action": "c2pa.created" }]
+        },
+        "cawg.identity": {
+          "signer_payload": {
+            "sig_type": "cawg.identity_claims_aggregation",
+            "role": ["cawg.creator"],
+            "referenced_assertions": []
+          },
+          "verifiedIdentities": [
+            {
+              "type": "cawg.document_verification",
+              "name": "Priya Nair",
+              "provider": {
+                "id": "https://example-id-verifier.com",
+                "name": "Example ID Verifier"
+              },
+              "verifiedAt": "2026-04-11T09:22:03Z"
+            },
+            {
+              "type": "cawg.social_media",
+              "name": "Priya Nair",
+              "username": "priyanair",
+              "uri": "https://instagram.com/priyanair",
+              "provider": {
+                "id": "https://instagram.com",
+                "name": "Instagram"
+              },
+              "verifiedAt": "2026-04-11T09:24:17Z"
+            }
+          ],
+          "issuer": "did:web:creatorassertions.org"
+        },
+        "cawg.metadata": {
+          "@context": {
+            "dc": "http://purl.org/dc/elements/1.1/",
+            "Iptc4xmpExt": "http://iptc.org/std/Iptc4xmpExt/2008-02-29/",
+            "photoshop": "http://ns.adobe.com/photoshop/1.0/"
+          },
+          "dc:creator": "Priya Nair",
+          "photoshop:DateCreated": "2026-04-11",
+          "Iptc4xmpExt:DigitalSourceType": "https://cv.iptc.org/newscodes/digitalsourcetype/digitalCapture",
+          "Iptc4xmpExt:LocationCreated": {
+            "Iptc4xmpExt:City": "Toronto"
+          }
+        },
+        "cawg.training-mining": {
+          "entries": {
+            "cawg.data_mining": { "use": "allowed" },
+            "cawg.ai_inference": { "use": "allowed" },
+            "cawg.ai_training": { "use": "allowed" },
+            "cawg.ai_generative_training": { "use": "allowed" }
+          }
+        }
+      },
+      "credentials": [],
+      "thumbnail": null,
+      "ingredients": []
+    }
+  ],
+  "manifestStore": {
+    "activeManifest": "urn:c2pa:example-trqp-002",
+    "manifests": {
+      "urn:c2pa:example-trqp-002": {
+        "claimGenerator": null,
+        "claimGeneratorInfo": [
+          {
+            "name": "Adobe Photoshop",
+            "org.contentauth.c2pa_rs": "0.65.0"
+          }
+        ],
+        "title": "Registered Signer Photo",
+        "instanceId": "xmp:iid:example-trqp-002",
+        "signatureInfo": {
+          "alg": "Es256",
+          "issuer": "Creator Assertions Working Group",
+          "common_name": "CAWG Test Signer",
+          "cert_serial_number": "918273645918273645918273645918273645918273"
+        }
+      }
+    }
+  }
+}

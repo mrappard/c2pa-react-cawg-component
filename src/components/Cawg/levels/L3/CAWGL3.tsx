@@ -1,6 +1,8 @@
 import { CAWG_Header } from "../../CAWG_Header";
 import { Manifest } from 'c2pa-react-component-types';
 import "../styles/cawg.css";
+import { getBestUserName } from "../../helper/getBestUserName";
+import { TrustBadge } from "../../helper/TrustBadge";
 
 const ROLE_LABELS: Record<string, string> = {
   'cawg.creator': 'Creator',
@@ -75,7 +77,13 @@ export interface CAWGL3Props {
 export default function CAWGL3({ className, manifest, moreInfo }: CAWGL3Props) {
   const title = manifest.title;
   const claimGenerator = manifest.claimGenerator ?? manifest.claimGeneratorInfo?.[0]?.name ?? 'Unknown';
+
+  const creatorName = getBestUserName(manifest.assertions?.['cawg.identity']?.verifiedIdentities);
+
+
   const initials = claimGenerator.split(' ').filter(Boolean).map((n: string) => n[0].toUpperCase()).join('') || '?';
+
+
 
   const identityAssertion = manifest.assertions?.['cawg.identity'];
   const roles: string[] = identityAssertion?.signer_payload?.role ?? [];
@@ -104,7 +112,7 @@ export default function CAWGL3({ className, manifest, moreInfo }: CAWGL3Props) {
         )}
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <span className="cawg-media-title">{title}</span>
-          <span className="cawg-claim-generator">{claimGenerator}</span>
+          <span className="cawg-creators-name">{creatorName}</span>
         </div>
       </div>
 
@@ -133,6 +141,11 @@ export default function CAWGL3({ className, manifest, moreInfo }: CAWGL3Props) {
               <div className="cawg-key-value-value">{issuer}</div>
             </div>
           )}
+
+          <div className="cawg-key-value">
+            <div className="cawg-key-value-label">Trust Registry</div>
+            <TrustBadge entityId={issuer} action="issue" resource="cawg.identity" variant="full" />
+          </div>
 
           {verifiedIdentities.length > 0 && (
             <div className="cawg-identity-list" style={{ marginTop: 12 }}>

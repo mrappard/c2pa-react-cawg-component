@@ -1,6 +1,7 @@
 import { CAWG_Header } from "../../CAWG_Header";
 import { Manifest } from 'c2pa-react-component-types';
 import "../styles/cawg.css";
+import { getBestUserName } from "../../helper/getBestUserName";
 
 const ROLE_LABELS: Record<string, string> = {
   'cawg.creator': 'Creator',
@@ -21,6 +22,9 @@ export interface CAWGL1Props {
 export function CAWGL1({ className, manifest, moreInfo }: CAWGL1Props) {
   const title = manifest.title;
   const claimGenerator = manifest.claimGenerator ?? manifest.claimGeneratorInfo?.[0]?.name ?? 'Unknown';
+  
+  const creatorName = getBestUserName(manifest.assertions?.['cawg.identity']?.verifiedIdentities);
+
   const initials = claimGenerator.split(' ').filter(Boolean).map((n: string) => n[0].toUpperCase()).join('') || '?';
 
   const identityAssertion = manifest.assertions?.['cawg.identity'];
@@ -39,7 +43,7 @@ export function CAWGL1({ className, manifest, moreInfo }: CAWGL1Props) {
         )}
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <span className="cawg-media-title">{title}</span>
-          <span className="cawg-claim-generator">{claimGenerator}</span>
+          <span className="cawg-creators-name">{creatorName}</span>
         </div>
       </div>
 

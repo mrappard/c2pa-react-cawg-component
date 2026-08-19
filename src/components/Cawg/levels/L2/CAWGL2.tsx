@@ -1,6 +1,8 @@
 import { CAWG_Header } from "../../CAWG_Header";
 import { Manifest } from 'c2pa-react-component-types';
 import "../styles/cawg.css";
+import { getBestUserName } from "../../helper/getBestUserName";
+import { TrustBadge } from "../../helper/TrustBadge";
 
 const ROLE_LABELS: Record<string, string> = {
   'cawg.creator': 'Creator',
@@ -39,6 +41,20 @@ const USE_LABELS: Record<string, string> = {
   'constrained': 'Constrained',
 };
 
+function formatDate(iso: string): string {
+  try {
+    return new Date(iso).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
+  } catch {
+    return iso;
+  }
+}
+
+function formatCreator(value: unknown): string {
+  if (Array.isArray(value)) return value.filter(v => typeof v === 'string').join(', ');
+  if (typeof value === 'string') return value;
+  return '';
+}
+
 export interface CAWGL2Props {
   manifest: Manifest;
   moreInfo?: () => void;
@@ -50,12 +66,20 @@ export default function CAWGL2({ className, manifest, moreInfo }: CAWGL2Props) {
   const claimGenerator = manifest.claimGenerator ?? manifest.claimGeneratorInfo?.[0]?.name ?? 'Unknown';
   const initials = claimGenerator.split(' ').filter(Boolean).map((n: string) => n[0].toUpperCase()).join('') || '?';
 
+  const creatorName = getBestUserName(manifest.assertions?.['cawg.identity']?.verifiedIdentities);
+  
+
   const identityAssertion = manifest.assertions?.['cawg.identity'];
   const roles: string[] = identityAssertion?.signer_payload?.role ?? [];
   const verifiedIdentities: Record<string, unknown>[] = identityAssertion?.verifiedIdentities ?? [];
+  const issuer: string | undefined = identityAssertion?.issuer;
 
   const trainingAssertion = manifest.assertions?.['cawg.training-mining'];
   const trainingEntries: Record<string, { use: string; constraint_info?: string }> = trainingAssertion?.entries ?? {};
+
+  const cawgMetadata = manifest.assertions?.['cawg.metadata'] as Record<string, unknown> | undefined;
+  const creator = formatCreator(cawgMetadata?.['dc:creator']);
+  const createDate = cawgMetadata?.['xmp:CreateDate'] as string | undefined;
 
   return (
     <div className={`cawg-card ${className ?? ''}`}>
@@ -70,7 +94,7 @@ export default function CAWGL2({ className, manifest, moreInfo }: CAWGL2Props) {
         )}
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <span className="cawg-media-title">{title}</span>
-          <span className="cawg-claim-generator">{claimGenerator}</span>
+           <span className="cawg-creators-name">{creatorName}</span>
         </div>
       </div>
 
@@ -85,7 +109,10 @@ export default function CAWGL2({ className, manifest, moreInfo }: CAWGL2Props) {
       {verifiedIdentities.length > 0 && (
         <>
           <div className="cawg-divider" />
-          <div className="cawg-section-title">Identity</div>
+          <div className="cawg-section-title" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
+            <span>Identity</span>
+            <TrustBadge entityId={issuer} action="issue" resource="cawg.identity" variant="compact" />
+          </div>
           <div className="cawg-identity-list">
             {verifiedIdentities.map((identity, i) => {
               const type = identity.type as string;
@@ -119,6 +146,25 @@ export default function CAWGL2({ className, manifest, moreInfo }: CAWGL2Props) {
               </div>
             ))}
           </div>
+        </>
+      )}
+
+      {(creator || createDate) && (
+        <>
+          <div className="cawg-divider" />
+          <div className="cawg-section-title">Creator</div>
+          {creator && (
+            <div className="cawg-key-value">
+              <div className="cawg-key-value-label">Name</div>
+              <div className="cawg-key-value-value">{creator}</div>
+            </div>
+          )}
+          {createDate && (
+            <div className="cawg-key-value">
+              <div className="cawg-key-value-label">Date Created</div>
+              <div className="cawg-key-value-value">{formatDate(createDate)}</div>
+            </div>
+          )}
         </>
       )}
 

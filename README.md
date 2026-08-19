@@ -89,6 +89,45 @@ import { CAWGManifest } from "c2pa-react-cawg-component";
 
 Clicking "More Info" advances from level 1 → 2 → 3. Clicking "Small View" at level 3 returns to level 1.
 
+## Trust registry (TRQP)
+
+Level 2 and level 3 render a `TrustBadge` next to verified identities, showing whether the manifest's issuer is recognized by a [TRQP](https://creator-assertions.github.io/) trust registry.
+
+This package does **not** ship a mock or default trust registry. Out of the box, the badge will always report "Unable to reach trust registry" — you must configure a real query function that calls your TRQP endpoint (or any equivalent authorization check).
+
+### `setTrustRegistryQueryFn`
+
+Call once at app startup to configure the query function used by every `TrustBadge` in your app:
+
+```ts
+import { setTrustRegistryQueryFn } from "c2pa-react-cawg-component";
+import type { TrqpAuthorizationResponse } from "c2pa-react-cawg-component";
+
+setTrustRegistryQueryFn(async ({ entityId, action, resource }): Promise<TrqpAuthorizationResponse> => {
+  const res = await fetch(
+    `https://your-trqp-endpoint.example.com/registries/main/entities/${entityId}/authorization/${action}/${resource}`,
+  );
+  if (!res.ok) throw new Error(`TRQP query failed: ${res.status}`);
+  return res.json();
+});
+```
+
+If no query function is configured, every `TrustBadge` throws and renders an error state instead of silently reporting a false result.
+
+### Per-badge override
+
+`TrustBadge` (used internally by `CAWGManifest` at levels 2–3) also accepts a `queryFn` prop directly, which takes precedence over the app-wide default set via `setTrustRegistryQueryFn`.
+
+### `TrustRegistryQueryFn`
+
+```ts
+type TrustRegistryQueryFn = (params: {
+  entityId: string;
+  action?: string;
+  resource?: string;
+}) => Promise<TrqpAuthorizationResponse>;
+```
+
 ## Types
 
 Types are provided by the shared `c2pa-react-component-types` package, which is installed automatically as a dependency.
@@ -101,6 +140,8 @@ import type {
   PluginC2PA,
 } from "c2pa-react-component-types";
 ```
+
+This package also exports its own TRQP-related types — see [Trust registry (TRQP)](#trust-registry-trqp) above.
 
 ## Local development
 
