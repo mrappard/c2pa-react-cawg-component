@@ -1,0 +1,102 @@
+{
+  "state": true,
+  "manifests": [
+    {
+      "id": "urn:c2pa:example-trqp-001",
+      "title": "Unregistered Signer Photo",
+      "claimGenerator": null,
+      "claimGeneratorInfo": [
+        {
+          "name": "Adobe Photoshop",
+          "org.contentauth.c2pa_rs": "0.65.0"
+        }
+      ],
+      "instanceId": "xmp:iid:example-trqp-001",
+      "signatureInfo": {
+        "alg": "Es256",
+        "issuer": "Example Signing Authority",
+        "common_name": "Example Signing Authority C2PA",
+        "cert_serial_number": "298374659827364598273465982736459827364598"
+      },
+      "assertions": {
+        "c2pa.actions.v2": {
+          "actions": [{ "action": "c2pa.created" }]
+        },
+        "cawg.identity": {
+          "signer_payload": {
+            "sig_type": "cawg.identity_claims_aggregation",
+            "role": ["cawg.creator"],
+            "referenced_assertions": []
+          },
+          "verifiedIdentities": [
+            {
+              "type": "cawg.document_verification",
+              "name": "Jordan Ellis",
+              "provider": {
+                "id": "https://example-id-verifier.com",
+                "name": "Example ID Verifier"
+              },
+              "verifiedAt": "2026-06-02T14:05:11Z"
+            },
+            {
+              "type": "cawg.web_site",
+              "uri": "https://jordanellis.example.com",
+              "provider": {
+                "id": "https://jordanellis.example.com",
+                "name": "jordanellis.example.com"
+              },
+              "verifiedAt": "2026-06-02T14:07:44Z"
+            }
+          ],
+          "issuer": "did:web:unverified-signer.example.com"
+        },
+        "cawg.metadata": {
+          "@context": {
+            "dc": "http://purl.org/dc/elements/1.1/",
+            "Iptc4xmpExt": "http://iptc.org/std/Iptc4xmpExt/2008-02-29/",
+            "photoshop": "http://ns.adobe.com/photoshop/1.0/"
+          },
+          "dc:creator": "Jordan Ellis",
+          "photoshop:DateCreated": "2026-06-02",
+          "Iptc4xmpExt:DigitalSourceType": "https://cv.iptc.org/newscodes/digitalsourcetype/digitalCapture",
+          "Iptc4xmpExt:LocationCreated": {
+            "Iptc4xmpExt:City": "Austin"
+          }
+        },
+        "cawg.training-mining": {
+          "entries": {
+            "cawg.data_mining": { "use": "notAllowed" },
+            "cawg.ai_inference": { "use": "notAllowed" },
+            "cawg.ai_training": { "use": "notAllowed" },
+            "cawg.ai_generative_training": { "use": "notAllowed" }
+          }
+        }
+      },
+      "credentials": [],
+      "thumbnail": null,
+      "ingredients": []
+    }
+  ],
+  "manifestStore": {
+    "activeManifest": "urn:c2pa:example-trqp-001",
+    "manifests": {
+      "urn:c2pa:example-trqp-001": {
+        "claimGenerator": null,
+        "claimGeneratorInfo": [
+          {
+            "name": "Adobe Photoshop",
+            "org.contentauth.c2pa_rs": "0.65.0"
+          }
+        ],
+        "title": "Unregistered Signer Photo",
+        "instanceId": "xmp:iid:example-trqp-001",
+        "signatureInfo": {
+          "alg": "Es256",
+          "issuer": "Example Signing Authority",
+          "common_name": "Example Signing Authority C2PA",
+          "cert_serial_number": "298374659827364598273465982736459827364598"
+        }
+      }
+    }
+  }
+}

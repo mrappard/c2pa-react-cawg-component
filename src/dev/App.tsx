@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { CAWGManifest } from '../components/Cawg/Cawg'
+import { setTrustRegistryQueryFn } from '../components/Cawg/helper/trqp'
+import type { TrqpAuthorizationResponse } from '../components/Cawg/helper/trqp'
 import type { VerificationOutcome } from 'c2pa-react-component-types'
 
 import carEsPs from '../../examples/car-es-Ps-Cr.json'
@@ -9,6 +11,33 @@ import craterLake from '../../examples/crater-lake-cr.json'
 import createdExample from '../../examples/createdExample.json'
 import fireflyTabby from '../../examples/Firefly_tabby_cat.json'
 import identityExample from '../../examples/cawg-identity-example.json'
+import trqpAuthorizationUnverified from '../../examples/trqp-identity-example.json'
+import trqpAuthorizationVerified from '../../examples/trqp-identity-verified-example.json'
+
+// Dev-only mock so the playground can demonstrate TrustBadge without a real TRQP endpoint.
+// Consumers of the published package must call setTrustRegistryQueryFn themselves.
+const MOCK_TRUST_REGISTRY: Record<string, { authority_id: string }> = {
+  'did:web:connected-identities.identity.adobe.com': { authority_id: 'did:web:contentauthenticity.org' },
+  'did:web:creatorassertions.org': { authority_id: 'did:web:creatorassertions.org' },
+}
+
+setTrustRegistryQueryFn(async ({ entityId, action = 'issue', resource = 'cawg.identity' }): Promise<TrqpAuthorizationResponse> => {
+  const time_requested = new Date().toISOString()
+  await new Promise(resolve => setTimeout(resolve, 350 + Math.random() * 250))
+
+  const known = MOCK_TRUST_REGISTRY[entityId]
+
+  return {
+    entity_id: entityId,
+    authority_id: known?.authority_id ?? 'unknown',
+    action,
+    resource,
+    authorized: !!known,
+    time_requested,
+    time_evaluated: new Date().toISOString(),
+    message: known ? undefined : `No trust registry record found for "${entityId}"`,
+  }
+})
 
 type ManifestStoreFormat = {
   activeManifest: string
@@ -47,6 +76,8 @@ const examples: { label: string; data: VerificationOutcome }[] = [
   { label: 'ChatGPT – Image', data: storeToOutcome(chatGptImage as ManifestStoreFormat) },
   { label: 'Adobe Content Authenticity – Cloudscape', data: storeToOutcome(cloudscape as ManifestStoreFormat) },
   { label: 'Lightroom – Crater Lake', data: storeToOutcome(craterLake as ManifestStoreFormat) },
+  { label: "TRQP Unverified", data: trqpAuthorizationUnverified as unknown as VerificationOutcome },
+  { label: "TRQP Verified", data: trqpAuthorizationVerified as unknown as VerificationOutcome }
 ]
 
 export default function App() {
