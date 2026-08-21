@@ -2,6 +2,7 @@ import { CAWG_Header } from "../../CAWG_Header";
 import { Manifest } from 'c2pa-react-component-types';
 import "../styles/cawg.css";
 import { getBestUserName } from "../../helper/getBestUserName";
+import { getSignerPayload } from "../../helper/getSignerPayload";
 
 const ROLE_LABELS: Record<string, string> = {
   'cawg.creator': 'Creator',
@@ -28,7 +29,7 @@ export function CAWGL1({ className, manifest, moreInfo }: CAWGL1Props) {
   const initials = claimGenerator.split(' ').filter(Boolean).map((n: string) => n[0].toUpperCase()).join('') || '?';
 
   const identityAssertion = manifest.assertions?.['cawg.identity'];
-  const roles: string[] = identityAssertion?.signer_payload?.role ?? [];
+  const roles: string[] = getSignerPayload(identityAssertion)?.role ?? [];
 
   return (
     <div className={`cawg-card ${className ?? ''}`}>

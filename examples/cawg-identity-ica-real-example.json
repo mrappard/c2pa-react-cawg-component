@@ -1,0 +1,92 @@
+{
+  "state": true,
+  "manifests": [
+    {
+      "id": "urn:c2pa:example-identity-ica-real-001",
+      "title": "Real ICA-signed identity (c2pa-rs-javascript-library output shape)",
+      "claimGenerator": null,
+      "claimGeneratorInfo": [
+        { "name": "Mix-O-Tron" }
+      ],
+      "instanceId": "xmp:iid:example-identity-ica-real-001",
+      "signatureInfo": {
+        "alg": "Es256",
+        "issuer": "C2PA Test Signing Cert",
+        "common_name": "C2PA Test Signing Cert",
+        "cert_serial_number": "640229841392226413189608867977836244731148734950"
+      },
+      "assertions": {
+        "c2pa.actions.v2": {
+          "actions": [{ "action": "c2pa.created" }]
+        },
+        "cawg.identity": {
+          "@context": [
+            "https://www.w3.org/ns/credentials/v2",
+            "https://cawg.io/identity/1.1/ica/context/"
+          ],
+          "type": ["VerifiableCredential", "IdentityClaimsAggregationCredential"],
+          "issuer": "did:jwk:eyJrdHkiOiJPS1AiLCJjcnYiOiJFZDI1NTE5IiwieCI6Imx0RzZINmxHSFZKUDdETDhycjV0WWdYSHh4ZDdrSlEwUG53RVQyd3RiM2MifQ",
+          "validFrom": "2026-08-21T14:46:56.451Z",
+          "verifiedIdentities": [
+            {
+              "type": "cawg.social_media",
+              "name": "Instagram",
+              "username": "@recheck",
+              "verifiedAt": "2026-08-21T14:46:56.422Z",
+              "provider": { "id": "https://mix-o-tron.com", "name": "Mix-O-Tron" }
+            }
+          ],
+          "c2paAsset": {
+            "referenced_assertions": [
+              {
+                "url": "self#jumbf=c2pa.assertions/c2pa.hash.data",
+                "hash": [128, 20, 157, 210, 63, 184, 26, 108, 37, 189, 6, 212, 81, 129, 109, 216, 13, 231, 169, 214, 224, 127, 202, 135, 147, 201, 52, 82, 101, 52, 182, 253]
+              }
+            ],
+            "sig_type": "cawg.identity_claims_aggregation",
+            "role": ["cawg.creator", "cawg.producer"]
+          }
+        },
+        "cawg.metadata": {
+          "@context": {
+            "dc": "http://purl.org/dc/elements/1.1/",
+            "xmp": "http://ns.adobe.com/xap/1.0/"
+          },
+          "dc:title": ["0.2.4 ICA role recheck"],
+          "dc:creator": ["Tier 2 Tester"],
+          "xmp:CreateDate": "2026-08-21T14:46:56.542Z"
+        },
+        "cawg.training-mining": {
+          "entries": {
+            "cawg.data_mining": { "use": "notAllowed" },
+            "cawg.ai_inference": { "use": "allowed" },
+            "cawg.ai_training": { "use": "notAllowed" },
+            "cawg.ai_generative_training": { "use": "notAllowed" }
+          }
+        }
+      },
+      "credentials": [],
+      "thumbnail": null,
+      "ingredients": []
+    }
+  ],
+  "manifestStore": {
+    "activeManifest": "urn:c2pa:example-identity-ica-real-001",
+    "manifests": {
+      "urn:c2pa:example-identity-ica-real-001": {
+        "claimGenerator": null,
+        "claimGeneratorInfo": [
+          { "name": "Mix-O-Tron" }
+        ],
+        "title": "Real ICA-signed identity (c2pa-rs-javascript-library output shape)",
+        "instanceId": "xmp:iid:example-identity-ica-real-001",
+        "signatureInfo": {
+          "alg": "Es256",
+          "issuer": "C2PA Test Signing Cert",
+          "common_name": "C2PA Test Signing Cert",
+          "cert_serial_number": "640229841392226413189608867977836244731148734950"
+        }
+      }
+    }
+  }
+}

@@ -11,6 +11,7 @@ import craterLake from '../../examples/crater-lake-cr.json'
 import createdExample from '../../examples/createdExample.json'
 import fireflyTabby from '../../examples/Firefly_tabby_cat.json'
 import identityExample from '../../examples/cawg-identity-example.json'
+import identityIcaRealExample from '../../examples/cawg-identity-ica-real-example.json'
 import trqpAuthorizationUnverified from '../../examples/trqp-identity-example.json'
 import trqpAuthorizationVerified from '../../examples/trqp-identity-verified-example.json'
 
@@ -19,6 +20,7 @@ import trqpAuthorizationVerified from '../../examples/trqp-identity-verified-exa
 const MOCK_TRUST_REGISTRY: Record<string, { authority_id: string }> = {
   'did:web:connected-identities.identity.adobe.com': { authority_id: 'did:web:contentauthenticity.org' },
   'did:web:creatorassertions.org': { authority_id: 'did:web:creatorassertions.org' },
+  'did:jwk:eyJrdHkiOiJPS1AiLCJjcnYiOiJFZDI1NTE5IiwieCI6Imx0RzZINmxHSFZKUDdETDhycjV0WWdYSHh4ZDdrSlEwUG53RVQyd3RiM2MifQ': { authority_id: 'https://mix-o-tron.com' },
 }
 
 setTrustRegistryQueryFn(async ({ entityId, action = 'issue', resource = 'cawg.identity' }): Promise<TrqpAuthorizationResponse> => {
@@ -70,6 +72,7 @@ function storeToOutcome(store: ManifestStoreFormat): VerificationOutcome {
 
 const examples: { label: string; data: VerificationOutcome }[] = [
   { label: 'CAWG Identity + Metadata + Training (full example)', data: identityExample as unknown as VerificationOutcome },
+  { label: 'CAWG Identity — real ICA output shape (c2paAsset, not signer_payload)', data: identityIcaRealExample as unknown as VerificationOutcome },
   { label: 'Created Example (schema.org only)', data: createdExample as unknown as VerificationOutcome },
   { label: 'Adobe Firefly – Tabby Cat', data: storeToOutcome(fireflyTabby as ManifestStoreFormat) },
   { label: 'Adobe Photoshop – Car', data: storeToOutcome(carEsPs as ManifestStoreFormat) },
