@@ -2,6 +2,7 @@ import { CAWG_Header } from "../../CAWG_Header";
 import { Manifest } from 'c2pa-react-component-types';
 import "../styles/cawg.css";
 import { getBestUserName } from "../../helper/getBestUserName";
+import { getSignerPayload } from "../../helper/getSignerPayload";
 import { TrustBadge } from "../../helper/TrustBadge";
 
 const ROLE_LABELS: Record<string, string> = {
@@ -70,7 +71,7 @@ export default function CAWGL2({ className, manifest, moreInfo }: CAWGL2Props) {
   
 
   const identityAssertion = manifest.assertions?.['cawg.identity'];
-  const roles: string[] = identityAssertion?.signer_payload?.role ?? [];
+  const roles: string[] = getSignerPayload(identityAssertion)?.role ?? [];
   const verifiedIdentities: Record<string, unknown>[] = identityAssertion?.verifiedIdentities ?? [];
   const issuer: string | undefined = identityAssertion?.issuer;
 
