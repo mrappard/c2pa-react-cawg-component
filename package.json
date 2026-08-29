@@ -1,6 +1,6 @@
 {
   "name": "c2pa-react-cawg-component",
-  "version": "0.1.12",
+  "version": "0.1.14",
   "description": "A React plugin for c2pa-react-component that renders Creator Assertions Working Group (CAWG) data — identity credentials, metadata, and training permissions.",
   "type": "module",
   "main": "./dist/c2pa-react-cawg-component.umd.cjs",

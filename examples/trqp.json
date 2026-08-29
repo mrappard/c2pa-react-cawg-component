@@ -87,7 +87,7 @@
                         ],
                         "trust_registry": [
                             {
-                                "trqp_authorization_uri": "https://trqp.governorator.com/fail",
+                                "trqp_authorization_uri": "https://trqp.governorator.com",
                                 "entity_id": "did:web:api.didsmith.com:rg9r3yhybuhp3bs5cm38n",
                                 "authority_id": "did:web:trustregistry:com",
                                 "action": "issue",

@@ -288,3 +288,12 @@
   color: #991b1b;
   margin-top: 4px;
 }
+
+.cawg-trust-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  object-fit: cover;
+  margin-right: 8px;
+  flex-shrink: 0;
+}

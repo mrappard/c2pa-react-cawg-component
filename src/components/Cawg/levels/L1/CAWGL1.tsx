@@ -3,6 +3,9 @@ import { Manifest } from 'c2pa-react-component-types';
 import "../styles/cawg.css";
 import { getBestUserName } from "../../helper/getBestUserName";
 import { getSignerPayload } from "../../helper/getSignerPayload";
+import { useTrustRegistrySummary } from "../../helper/trqp";
+
+const couldNotVerify = "Identity Unable to be Verified by Trust Registry";
 
 const ROLE_LABELS: Record<string, string> = {
   'cawg.creator': 'Creator',
@@ -29,7 +32,13 @@ export function CAWGL1({ className, manifest, moreInfo }: CAWGL1Props) {
   const initials = claimGenerator.split(' ').filter(Boolean).map((n: string) => n[0].toUpperCase()).join('') || '?';
 
   const identityAssertion = manifest.assertions?.['cawg.identity'];
-  const roles: string[] = getSignerPayload(identityAssertion)?.role ?? [];
+  const signerPayload = getSignerPayload(identityAssertion);
+  const roles: string[] = signerPayload?.role ?? [];
+
+  const trustRegistries = signerPayload?.trust_registry ?? [];
+  const { status: trustStatus, results: trustResults } = useTrustRegistrySummary(trustRegistries);
+  const visibleTrustResults = trustResults.filter(r => !r.hide);
+  const hasTrustFailure = trustStatus === 'done' && visibleTrustResults.some(r => !r.authorized);
 
   return (
     <div className={`cawg-card ${className ?? ''}`}>
@@ -47,6 +56,12 @@ export function CAWGL1({ className, manifest, moreInfo }: CAWGL1Props) {
           <span className="cawg-creators-name">{creatorName}</span>
         </div>
       </div>
+
+      {hasTrustFailure && (
+        <div style={{ marginTop: 12 }}>
+          <span className="cawg-trust-badge cawg-trust-unverified">{couldNotVerify}</span>
+        </div>
+      )}
 
       {roles.length > 0 && (
         <div className="cawg-roles">
