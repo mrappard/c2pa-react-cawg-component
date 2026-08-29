@@ -3,7 +3,7 @@ import { Manifest } from 'c2pa-react-component-types';
 import "../styles/cawg.css";
 import { getBestUserName } from "../../helper/getBestUserName";
 import { getSignerPayload } from "../../helper/getSignerPayload";
-import { TrustBadge } from "../../helper/TrustBadge";
+import { TrustRegistryRow, TrustRegistrySummaryBadge } from "../../helper/TrustBadge";
 
 const ROLE_LABELS: Record<string, string> = {
   'cawg.creator': 'Creator',
@@ -92,6 +92,7 @@ export default function CAWGL3({ className, manifest, moreInfo }: CAWGL3Props) {
   const verifiedIdentities: Record<string, unknown>[] = identityAssertion?.verifiedIdentities ?? [];
   const sigType: string | undefined = signerPayload?.sig_type;
   const issuer: string | undefined = identityAssertion?.issuer;
+  const trustRegistries = signerPayload?.trust_registry ?? [];
 
   const trainingAssertion = manifest.assertions?.['cawg.training-mining'];
   const trainingEntries: Record<string, { use: string; constraint_info?: string }> = trainingAssertion?.entries ?? {};
@@ -144,10 +145,12 @@ export default function CAWGL3({ className, manifest, moreInfo }: CAWGL3Props) {
             </div>
           )}
 
-          <div className="cawg-key-value">
-            <div className="cawg-key-value-label">Trust Registry</div>
-            <TrustBadge entityId={issuer} action="issue" resource="cawg.identity" variant="full" />
-          </div>
+          {trustRegistries.length > 0 && (
+            <div className="cawg-key-value">
+              <div className="cawg-key-value-label">Trust Registry</div>
+              <TrustRegistrySummaryBadge entries={trustRegistries} variant="full" />
+            </div>
+          )}
 
           {verifiedIdentities.length > 0 && (
             <div className="cawg-identity-list" style={{ marginTop: 12 }}>
@@ -176,6 +179,17 @@ export default function CAWGL3({ className, manifest, moreInfo }: CAWGL3Props) {
                 );
               })}
             </div>
+          )}
+
+          {trustRegistries.length > 0 && (
+            <>
+              <div className="cawg-section-title" style={{ marginTop: 16 }}>Trust Registries</div>
+              <div className="cawg-identity-list">
+                {trustRegistries.map((registry, i) => (
+                  <TrustRegistryRow key={i} entry={registry} variant="full" showEntity />
+                ))}
+              </div>
+            </>
           )}
         </>
       )}

@@ -13,31 +13,25 @@ import fireflyTabby from '../../examples/Firefly_tabby_cat.json'
 import identityExample from '../../examples/cawg-identity-example.json'
 import identityIcaRealExample from '../../examples/cawg-identity-ica-real-example.json'
 import trqpAuthorizationUnverified from '../../examples/trqp-identity-example.json'
-import trqpAuthorizationVerified from '../../examples/trqp-identity-verified-example.json'
+import trqpTrustRegistry from '../../examples/trqp.json'
 
 // Dev-only mock so the playground can demonstrate TrustBadge without a real TRQP endpoint.
 // Consumers of the published package must call setTrustRegistryQueryFn themselves.
-const MOCK_TRUST_REGISTRY: Record<string, { authority_id: string }> = {
-  'did:web:connected-identities.identity.adobe.com': { authority_id: 'did:web:contentauthenticity.org' },
-  'did:web:creatorassertions.org': { authority_id: 'did:web:creatorassertions.org' },
-  'did:jwk:eyJrdHkiOiJPS1AiLCJjcnYiOiJFZDI1NTE5IiwieCI6Imx0RzZINmxHSFZKUDdETDhycjV0WWdYSHh4ZDdrSlEwUG53RVQyd3RiM2MifQ': { authority_id: 'https://mix-o-tron.com' },
-}
-
-setTrustRegistryQueryFn(async ({ entityId, action = 'issue', resource = 'cawg.identity' }): Promise<TrqpAuthorizationResponse> => {
+setTrustRegistryQueryFn(async ({ entityId, action = 'issue', resource = 'cawg.identity', authorityId, trqpAuthorizationUri }): Promise<TrqpAuthorizationResponse> => {
   const time_requested = new Date().toISOString()
   await new Promise(resolve => setTimeout(resolve, 350 + Math.random() * 250))
 
-  const known = MOCK_TRUST_REGISTRY[entityId]
+  const authorized = !trqpAuthorizationUri?.includes('fail')
 
   return {
     entity_id: entityId,
-    authority_id: known?.authority_id ?? 'unknown',
+    authority_id: authorityId ?? 'unknown',
     action,
     resource,
-    authorized: !!known,
+    authorized,
     time_requested,
     time_evaluated: new Date().toISOString(),
-    message: known ? undefined : `No trust registry record found for "${entityId}"`,
+    message: authorized ? undefined : `Trust registry at "${trqpAuthorizationUri}" denied authorization for "${entityId}"`,
   }
 })
 
@@ -80,7 +74,8 @@ const examples: { label: string; data: VerificationOutcome }[] = [
   { label: 'Adobe Content Authenticity – Cloudscape', data: storeToOutcome(cloudscape as ManifestStoreFormat) },
   { label: 'Lightroom – Crater Lake', data: storeToOutcome(craterLake as ManifestStoreFormat) },
   { label: "TRQP Unverified", data: trqpAuthorizationUnverified as unknown as VerificationOutcome },
-  { label: "TRQP Verified", data: trqpAuthorizationVerified as unknown as VerificationOutcome }
+
+  { label: "TRQP Trust Registry", data: trqpTrustRegistry as unknown as VerificationOutcome }
 ]
 
 export default function App() {

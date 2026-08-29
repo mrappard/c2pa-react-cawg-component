@@ -1,7 +1,16 @@
+export type TrustRegistryEntry = {
+    trqp_authorization_uri?: string,
+    entity_id?: string,
+    authority_id?: string,
+    action?: string,
+    resource?: string,
+}
+
 export type SignerPayload = {
     sig_type?: string,
     role?: string[],
     referenced_assertions?: unknown[],
+    trust_registry?: TrustRegistryEntry[],
 }
 
 /**
