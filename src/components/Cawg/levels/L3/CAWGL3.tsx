@@ -79,7 +79,7 @@ export default function CAWGL3({ className, manifest, moreInfo }: CAWGL3Props) {
   const title = manifest.title;
   const claimGenerator = manifest.claimGenerator ?? manifest.claimGeneratorInfo?.[0]?.name ?? 'Unknown';
 
-  const creatorName = getBestUserName(manifest.assertions?.['cawg.identity']?.verifiedIdentities);
+  const creatorName = getBestUserName(manifest.assertions?.['cawg.identity']?.verifiedIdentities, manifest.assertions?.["cawg.metadata"]);
 
 
   const initials = claimGenerator.split(' ').filter(Boolean).map((n: string) => n[0].toUpperCase()).join('') || '?';

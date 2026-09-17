@@ -67,7 +67,7 @@ export default function CAWGL2({ className, manifest, moreInfo }: CAWGL2Props) {
   const claimGenerator = manifest.claimGenerator ?? manifest.claimGeneratorInfo?.[0]?.name ?? 'Unknown';
   const initials = claimGenerator.split(' ').filter(Boolean).map((n: string) => n[0].toUpperCase()).join('') || '?';
 
-  const creatorName = getBestUserName(manifest.assertions?.['cawg.identity']?.verifiedIdentities);
+  const creatorName = getBestUserName(manifest.assertions?.['cawg.identity']?.verifiedIdentities, manifest.assertions?.["cawg.metadata"]);
   
 
   const identityAssertion = manifest.assertions?.['cawg.identity'];

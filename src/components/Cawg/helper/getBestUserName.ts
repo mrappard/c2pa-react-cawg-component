@@ -28,7 +28,9 @@ const changeTypeToNumber = (type: string): number => {
 const typesToIgnore = ["cawg.affiliation"];
 
 
-export const getBestUserName = (identityObjectArray: VerifiedIdentitiesObject[] | VerifiedIdentitiesObject): string => {
+export const getBestUserName = (identityObjectArray: VerifiedIdentitiesObject[] | VerifiedIdentitiesObject, metaDataObject:{
+    "dc:creator"?:string
+}): string => {
 
 
     if (typeof identityObjectArray === "object" && !Array.isArray(identityObjectArray)) {
@@ -36,6 +38,13 @@ export const getBestUserName = (identityObjectArray: VerifiedIdentitiesObject[] 
     }
     
     if (!identityObjectArray || identityObjectArray.length === 0) {
+
+        if (metaDataObject["dc:creator"]){
+            return metaDataObject["dc:creator"]
+        }
+
+
+
         return "Unknown";
     }
 
