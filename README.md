@@ -89,6 +89,28 @@ import { CAWGManifest } from "c2pa-react-cawg-component";
 
 Clicking "More Info" advances from level 1 → 2 → 3. Clicking "Small View" at level 3 returns to level 1.
 
+### `createCAWGManifest(options)`
+
+Returns a configured CAWG plugin. `CAWGManifest` is `createCAWGManifest()` with the defaults.
+
+```tsx
+import { createCAWGManifest } from "c2pa-react-cawg-component";
+
+const CAWGWithCredentials = createCAWGManifest({
+  showCredentials: true,
+  onIssuerClick: (did) => console.log("look up", did),
+});
+
+<C2paManifest manifest={verificationOutcome} plugin={[CAWGWithCredentials]} />
+```
+
+| Option | Default | Effect |
+|---|---|---|
+| `showCredentials` | `false` | Adds a **Credential** section to level 3 for each identity assertion backed by a W3C verifiable credential: identity claims aggregation (`cawg.identity_claims_aggregation`) or verifiable credential binding (`cawg.verifiable_credential_binding`). Each credential shows its issuer, type, validity period, subjects, asset binding, revocation status and schema, with a toggle to the raw credential JSON. X.509 identities (`cawg.x509.cose`) have no credential document and aren't listed. |
+| `onIssuerClick` | none | Called with the issuer's DID when it's clicked. Without it, the issuer is plain text. |
+
+The credentials come from c2pa-rs's decoded identity assertions (`core.decode_identity_assertions`). The validity badge only compares the current time with `validFrom`/`validUntil`; the credential's validation status codes come from the SDK. `getCawgCredentials(manifest)` returns the same data for custom displays.
+
 ## Trust registry (TRQP)
 
 Level 2 and level 3 render a `TrustBadge` next to verified identities, showing whether the manifest's issuer is recognized by a [TRQP](https://creator-assertions.github.io/) trust registry.
