@@ -28,18 +28,20 @@ const changeTypeToNumber = (type: string): number => {
 const typesToIgnore = ["cawg.affiliation"];
 
 
-export const getBestUserName = (identityObjectArray: VerifiedIdentitiesObject[] | VerifiedIdentitiesObject, metaDataObject:{
+// Both arguments come straight from manifest assertions, so either may be
+// missing (e.g. an X.509-signed cawg.identity with no cawg.metadata assertion).
+export const getBestUserName = (identityObjectArray: VerifiedIdentitiesObject[] | VerifiedIdentitiesObject | undefined, metaDataObject?:{
     "dc:creator"?:string
 }): string => {
 
 
-    if (typeof identityObjectArray === "object" && !Array.isArray(identityObjectArray)) {
+    if (identityObjectArray && typeof identityObjectArray === "object" && !Array.isArray(identityObjectArray)) {
         identityObjectArray = [identityObjectArray];
     }
     
     if (!identityObjectArray || identityObjectArray.length === 0) {
 
-        if (metaDataObject["dc:creator"]){
+        if (metaDataObject?.["dc:creator"]){
             return metaDataObject["dc:creator"]
         }
 

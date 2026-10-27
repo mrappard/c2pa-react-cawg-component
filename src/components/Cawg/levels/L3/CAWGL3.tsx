@@ -1,4 +1,5 @@
 import { CAWG_Header } from "../../CAWG_Header";
+import { CredentialSection } from './CredentialSection';
 import { Manifest } from 'c2pa-react-component-types';
 import "../styles/cawg.css";
 import { getBestUserName } from "../../helper/getBestUserName";
@@ -73,9 +74,13 @@ export interface CAWGL3Props {
   manifest: Manifest;
   moreInfo?: () => void;
   className?: string;
+  /** Show the verifiable credentials behind the identity assertions. */
+  showCredentials?: boolean;
+  /** Called with an issuer DID when it's clicked in the credentials section. */
+  onIssuerClick?: (issuer: string) => void;
 }
 
-export default function CAWGL3({ className, manifest, moreInfo }: CAWGL3Props) {
+export default function CAWGL3({ className, manifest, moreInfo, showCredentials, onIssuerClick }: CAWGL3Props) {
   const title = manifest.title;
   const claimGenerator = manifest.claimGenerator ?? manifest.claimGeneratorInfo?.[0]?.name ?? 'Unknown';
 
@@ -91,7 +96,14 @@ export default function CAWGL3({ className, manifest, moreInfo }: CAWGL3Props) {
   const roles: string[] = signerPayload?.role ?? [];
   const verifiedIdentities: Record<string, unknown>[] = identityAssertion?.verifiedIdentities ?? [];
   const sigType: string | undefined = signerPayload?.sig_type;
-  const issuer: string | undefined = identityAssertion?.issuer;
+  // A VC `issuer` is a URI or an object with an `id` (and optionally a `name`).
+  const rawIssuer = identityAssertion?.issuer;
+  const issuer: string | undefined =
+    typeof rawIssuer === 'string'
+      ? rawIssuer
+      : rawIssuer && typeof rawIssuer === 'object' && typeof rawIssuer.id === 'string'
+        ? (typeof rawIssuer.name === 'string' ? `${rawIssuer.name} (${rawIssuer.id})` : rawIssuer.id)
+        : undefined;
   const trustRegistries = signerPayload?.trust_registry ?? [];
 
   const trainingAssertion = manifest.assertions?.['cawg.training-mining'];
@@ -193,6 +205,8 @@ export default function CAWGL3({ className, manifest, moreInfo }: CAWGL3Props) {
           )}
         </>
       )}
+
+      {showCredentials && <CredentialSection manifest={manifest} onIssuerClick={onIssuerClick} />}
 
       {Object.keys(trainingEntries).length > 0 && (
         <>
