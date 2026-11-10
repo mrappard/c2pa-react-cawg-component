@@ -167,37 +167,23 @@ This package also exports its own TRQP-related types — see [Trust registry (TR
 
 ## Local development
 
-Use [yalc](https://github.com/wclr/yalc) to consume the library in another local project without publishing to npm.
-
-**Install yalc globally (once):**
-
 ```bash
-npm install -g yalc
+npm run dev    # demo app
+npm test       # unit tests
+npm run lint
 ```
 
-**Start watch mode in this repo:**
+**Trying a build in another project before publishing.** Pack it and install the tarball without saving it to that project's `package.json`:
 
 ```bash
-# Terminal 1 — rebuild on every save
-npm run dev:lib
+# in this repo
+npm pack                     # writes c2pa-react-cawg-component-<version>.tgz
 
-# Terminal 2 — push updates to yalc's local store
-yalc push --watch
+# in the other project
+npm install --no-save ../c2pa-react-cawg-component/c2pa-react-cawg-component-<version>.tgz
 ```
 
-**In your consuming project:**
-
-```bash
-yalc add c2pa-react-cawg-component
-npm install
-```
-
-**Revert to the published npm version:**
-
-```bash
-yalc remove c2pa-react-cawg-component
-npm install
-```
+Running `npm install` in that project goes back to the version in its `package.json`. `npm publish` runs the build first (`prepublishOnly`); every dependency in `package.json` should be an npm version range, so the package installs anywhere.
 
 ## License
 

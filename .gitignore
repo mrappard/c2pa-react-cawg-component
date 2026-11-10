@@ -28,3 +28,6 @@ context
 context
 yalc.lock
 .yalc
+
+# npm pack output
+*.tgz
